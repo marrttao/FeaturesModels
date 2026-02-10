@@ -21,6 +21,10 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        
+        modelBuilder.Entity<ClientFinanceAccount>()
+            .HasKey(cfa => new { cfa.ClientId, cfa.FinanceAccountId });
+        
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Client>()
@@ -114,10 +118,12 @@ public class AppDbContext : DbContext
         {
             b.Property(s => s.Name).HasColumnType("varchar(50)").IsRequired();
         });
+        
 
         modelBuilder.Entity<Role>(b =>
         {
             b.Property(r => r.Name).HasColumnType("varchar(50)").IsRequired();
         });
     }
+    
 }

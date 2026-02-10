@@ -505,3 +505,4 @@ C:/Users/marrt/Videos/WebApplication1/bin/Debug/net10.0/Microsoft.EntityFramewor
 /home/marrttao/Pictures/WebApplication1/obj/Debug/net10.0/WebApplication1.pdb
 /home/marrttao/Pictures/WebApplication1/obj/Debug/net10.0/WebApplication1.genruntimeconfig.cache
 /home/marrttao/Pictures/WebApplication1/obj/Debug/net10.0/ref/WebApplication1.dll
+/home/marrttao/Pictures/WebApplication1/obj/Debug/net10.0/WebApplication1.sourcelink.json
