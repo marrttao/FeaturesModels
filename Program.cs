@@ -3,7 +3,22 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.RootDirectory = "/";
+    options.Conventions.AddFolderRouteModelConvention(
+        "/Features",
+        model =>
+        {
+            foreach (var selector in model.Selectors)
+            {
+                selector.AttributeRouteModel.Template =
+                    selector.AttributeRouteModel.Template.Replace("Features/", "")
+                        .Replace("/Pages", "");
+
+            }
+        });
+});
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -23,5 +38,13 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapGet(
+    "/", context =>
+    {
+        context.Response.Redirect("/Clients");
+        return Task.CompletedTask;
+    }
+    );
 
 app.Run();

@@ -3009,24 +3009,31 @@
     ]
   },
   "packageFolders": {
-    "/home/marrttao/.nuget/packages/": {}
+    "C:\\Users\\marrt\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/marrttao/Pictures/WebApplication1/WebApplication1.csproj",
+      "projectUniqueName": "C:\\Users\\marrt\\RiderProjects\\FeaturesModels\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "/home/marrttao/Pictures/WebApplication1/WebApplication1.csproj",
-      "packagesPath": "/home/marrttao/.nuget/packages/",
-      "outputPath": "/home/marrttao/Pictures/WebApplication1/obj/",
+      "projectPath": "C:\\Users\\marrt\\RiderProjects\\FeaturesModels\\WebApplication1.csproj",
+      "packagesPath": "C:\\Users\\marrt\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marrt\\RiderProjects\\FeaturesModels\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/marrttao/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\marrt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3103,7 +3110,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/marrttao/.dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
