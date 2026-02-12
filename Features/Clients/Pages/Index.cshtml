@@ -1,70 +1,86 @@
 ﻿@page
 @model WebApplication1.Features.Clients.Pages.IndexModel
 @{
-    Layout = null;
+    Layout = "/Pages/Shared/_Layout.cshtml";
     ViewData["Title"] = "Clients";
 }
 
-<h2>Add New Client</h2>
-<form method="post">
-    <div>
-        <label>Surname</label>
-        <input asp-for="NewClient.Surname">
-        <span asp-validation-for="NewClient.Surname"></span>
-    </div>
-    <div>
-        <label>First Name</label>
-        <input asp-for="NewClient.FirstName">
-        <span asp-validation-for="NewClient.FirstName"></span>
-    </div>
-    <div>
-        <label>Patronymic</label>
-        <input asp-for="NewClient.Patronymic">
-        <span asp-validation-for="NewClient.Patronymic"></span>
-    </div>
-    <div>
-        <label>Email</label>
-        <input asp-for="NewClient.Email">
-        <span asp-validation-for="NewClient.Email"></span>
-    </div>
-    <div>
-        <label>Birth Date</label>
-        <input asp-for="NewClient.BirthDate">
-        <span asp-validation-for="NewClient.BirthDate"></span>
-    </div>
-    <button type="submit">Add Client</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+</head>
+<body>
+    <form method="post">
+        @Html.AntiForgeryToken()
+
+        <h2>Add New Client</h2>
+        
+        <div>
+            <label>First Name</label>
+            <input asp-for="Client.FirstName"/>
+            <span asp-validation-for="Client.FirstName"></span>
+        </div>
 
 
-<hr/>
+        <div>
+            <label>Surname</label>
+            <input asp-for="Client.Surname" />
+            <span asp-validation-for="Client.Surname"></span>
+        </div>
 
-<h2>Clients List</h2>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Surname</th>
-        <th>First Name</th>
-        <th>Email</th>
-        <th>Birth Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var client in Model.Clients)
-    {
-        <tr>
-            <td>@client.Id</td>
-            <td>@client.Surname</td>
-            <td>@client.FirstName</td>
-            <td>@client.Email</td>
-            <td>@client.BirthDate</td>
-        </tr>
-    }
-    </tbody>
-</table>
+        <div>
+            <label>Patronymic</label>
+            <input asp-for="Client.Patronymic"/>
+            <span asp-validation-for="Client.Patronymic"></span>
+        </div>
 
+        <div>
+            <label>Email</label>
+            <input asp-for="Client.Email" type="email"/>
+            <span asp-validation-for="Client.Email"></span>
+        </div>
 
-@* *@
-@* @section Scripts { *@
-@*     <partial name="_ValidationScriptsPartial" /> *@
-@* } *@
+        <div>
+            <label>Birth Date</label>
+            <input asp-for="Client.BirthDate" type="date"/>
+            <span asp-validation-for="Client.BirthDate"></span>
+        </div>
+
+        <button type="submit">Add Client</button>
+    </form>
+
+    <hr/>
+
+    <h2>Clients List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Birth Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in Model.Clients)
+            {
+                <tr>
+                    <td>@client.FirstName</td>
+                    <td>@client.Surname</td>
+                    <td>@client.Patronymic</td>
+                    <td>@client.Email</td>
+                    <td>@client.BirthDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
+@section Scripts
+{
+    <partial name="Pages/Shared/_ValidationScriptsPartial"/>
+}

@@ -1,55 +1,58 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+namespace WebApplication1.Features.Clients.Pages;
+
 using WebApplication1.Data;
-using WebApplication1.Features.Clients.Models;
 using WebApplication1.Features.Clients.ViewModels;
+using WebApplication1.Features.Clients.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication1.Features.Clients.Pages
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly AppDbContext _dbContext;
+
+    [BindProperty]
+    public ClientViewModel Client { get; set; } = new ClientViewModel();
+    public List<Client> Clients { get; set; } = new List<Client>();
+
+    public IndexModel(AppDbContext dbContext) => _dbContext = dbContext;
+
+    public void OnGet()
     {
-        private readonly AppDbContext _dbContext;
+        Clients = _dbContext.Clients.OrderByDescending(client => client.CreatedAt).ToList();
 
-        public IndexModel(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-        
-        // for forms
-        [BindProperty] public ClientViewModel NewClient { get; set; } = new();
-        // for tables
-        public List<Client> Clients { get; set; } = new();
-        
-        public void OnGet()
-        {
-           // Clients = _dbContext.Clients.ToList();
-           Clients = _dbContext.Clients.OrderByDescending(c => c.CreatedAt).ToList();
-        }
-
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                Clients = _dbContext.Clients.OrderByDescending(c => c.CreatedAt).ToList();
-                return Page();
-            }
-            
-            var client = new Client
-            {
-                Surname = NewClient.Surname,
-                FirstName = NewClient.FirstName,
-                Patronymic = NewClient.Patronymic,
-                Email = NewClient.Email,
-                BirthDate = NewClient.BirthDate,
-                CreatedAt = DateTime.Now,
-                UpdatedAt =  DateTime.Now
-            };
-            
-            _dbContext.Clients.Add(client);
-            _dbContext.SaveChanges();
-            
-            return RedirectToPage();
-        }
+        Console.WriteLine($"Clients count: {Clients.Count}");
     }
-    
+
+    public IActionResult OnPost()
+    {
+        Console.WriteLine($"Received client data: {Client.FirstName} {Client.Surname}, Email: {Client.Email}, BirthDate: {Client.BirthDate}");
+
+        if (!ModelState.IsValid)
+        {
+            Clients = _dbContext.Clients.OrderByDescending(client => client.CreatedAt).ToList();
+            Console.WriteLine("Model state is invalid. Returning to page with validation errors.");
+            return Page();
+        }
+
+        Console.WriteLine("Model state is valid. Proceeding to create new client.");
+        
+        var newClient = new Client
+        {
+            Id = Guid.NewGuid(),
+            Surname = Client.Surname,
+            FirstName = Client.FirstName,
+            Patronymic = Client.Patronymic,
+            Email = Client.Email,
+            BirthDate = Client.BirthDate,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = DateTime.UtcNow
+        };
+
+        _dbContext.Clients.Add(newClient);
+        _dbContext.SaveChanges();
+
+        Console.WriteLine($"New client created with ID: {newClient.Id}");
+
+        return RedirectToPage("./Index");
+    }
 }
